@@ -13,16 +13,16 @@ flowchart TD
     Start(["Pipeline Trigger<br/>(CV Intake Webhook)"]) --> M1["Execute Workflow: Module 1<br/>(CV Intelligence)"]
     Start --> M2["Execute Workflow: Module 2<br/>(Job Discovery)"]
     
-    M1 -->|candidate_profile.json| M3["Execute Workflow: Module 3<br/>(Matching & Ranking)"]
-    M2 -->|jobs.json| M3
+    M1 -->|"candidate_profile.json"| M3["Execute Workflow: Module 3<br/>(Matching & Ranking)"]
+    M2 -->|"jobs.json"| M3
     
-    M3 -->|ranked_jobs.json| Filter{"Filter Jobs with<br/>decision == 'APPLY'"}
+    M3 -->|"ranked_jobs.json"| Filter{"Filter Jobs with<br/>decision == APPLY"}
     
     Filter -- "APPLY Candidates" --> Loop["For Each APPLY Vacancy"]
     
     subgraph Iteration["Per-Application Loop"]
         Loop --> M4["Execute Workflow: Module 4<br/>(CV Tailoring & Documents)"]
-        M4 -->|application_package.json| M5["Execute Workflow: Module 5<br/>(Application & Tracking)"]
+        M4 -->|"application_package.json"| M5["Execute Workflow: Module 5<br/>(Application & Tracking)"]
     end
     
     M5 --> Summary["Synthesize Pipeline Run Report"]

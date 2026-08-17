@@ -29,9 +29,9 @@ flowchart TD
         Hybrid --> Ranker["Deterministic Ranker & Tie-Breaker<br/>(Sort Score DESC, then Semantic DESC)"]
         Ranker --> Thresholds{"Threshold Classifier"}
         
-        Thresholds -- "Score >= 75.0" --> Apply["decision: 'APPLY'"]
-        Thresholds -- "50.0 <= Score < 75.0" --> Review["decision: 'REVIEW'"]
-        Thresholds -- "Score < 50.0" --> Reject["decision: 'REJECT'"]
+        Thresholds -- "Score >= 75.0" --> Apply["decision: APPLY"]
+        Thresholds -- "50.0 <= Score < 75.0" --> Review["decision: REVIEW"]
+        Thresholds -- "Score < 50.0" --> Reject["decision: REJECT"]
         
         Apply --> Explain["Explainability Generator<br/>(matched_skills, missing_skills, rationale)"]
         Review --> Explain

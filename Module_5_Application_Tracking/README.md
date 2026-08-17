@@ -12,7 +12,7 @@ This module receives a verified application package (`application_package.json`)
 flowchart TD
     subgraph Ingest["1. Package Ingestion & Duplicate Shield"]
         Pkg["application_package.json (Contract 3.4)"] --> Dedup{"Duplicate Check<br/>hash(candidate_id + job_id)"}
-        Dedup -- "Duplicate Exists" --> Skip["application_status: 'skipped_duplicate'<br/>Log Audit & Return"]
+        Dedup -- "Duplicate Exists" --> Skip["application_status: skipped_duplicate<br/>Log Audit & Return"]
         Dedup -- "Unique Application" --> Gate["2. Human Approval Gate"]
     end
 
@@ -20,8 +20,8 @@ flowchart TD
         Gate --> NotifyUser["Send Approval Request<br/>(Actionable Email Link / n8n Form)"]
         NotifyUser --> WaitDecision{"Wait for Human Decision<br/>(24h Timeout)"}
         
-        WaitDecision -- "REJECTED" --> StatusReject["application_status: 'failed'<br/>Log Rejection & Abort"]
-        WaitDecision -- "TIMEOUT" --> StatusTimeout["application_status: 'pending_approval'<br/>Log Stalled State"]
+        WaitDecision -- "REJECTED" --> StatusReject["application_status: failed<br/>Log Rejection & Abort"]
+        WaitDecision -- "TIMEOUT" --> StatusTimeout["application_status: pending_approval<br/>Log Stalled State"]
         WaitDecision -- "APPROVED" --> Submit["3. Submission Engine"]
     end
 
@@ -31,7 +31,7 @@ flowchart TD
         
         SubmitResult -- "Transient 5xx" --> RetryLoop{"Attempts < 3?<br/>(Exponential Backoff)"}
         RetryLoop -- "Yes" --> HttpPost
-        RetryLoop -- "No" --> PermanentFail["application_status: 'failed'<br/>Log Diagnostic Trace"]
+        RetryLoop -- "No" --> PermanentFail["application_status: failed<br/>Log Diagnostic Trace"]
         
         SubmitResult -- "200 OK (Success)" --> Persist["4. Tracking Store & Notification"]
     end

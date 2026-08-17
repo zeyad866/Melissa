@@ -25,16 +25,16 @@ flowchart LR
     end
 
     CV["Original CV (.tex/.pdf)"] --> M1
-    M1 -->|candidate_profile.json (3.1)| M3
+    M1 -->|"candidate_profile.json (3.1)"| M3
     
     SearchConfig["search_config.json"] --> M2
-    M2 -->|jobs.json (3.2)| M3
+    M2 -->|"jobs.json (3.2)"| M3
     
-    M3 -->|ranked_jobs.json (3.3)| M4
+    M3 -->|"ranked_jobs.json (3.3)"| M4
     CV --> M4
     
-    M4 -->|application_package.json (3.4)| M5
-    M5 -->|application_status.json (3.5)| Completed["Application Logged & Tracked"]
+    M4 -->|"application_package.json (3.4)"| M5
+    M5 -->|"application_status.json (3.5)"| Completed["Application Logged & Tracked"]
 ```
 
 ---

@@ -28,7 +28,7 @@ flowchart TD
         FactCheck -- "Unsupported Claims Found" --> RetryPass{"Retry Count < 2?"}
         RetryPass -- "Yes" --> FeedbackPrompt["Re-prompt with Hallucination Feedback"]
         FeedbackPrompt --> LLM_Tailor
-        RetryPass -- "No" --> FailPackage["Fail Loudly (fact_check.passed = false)"]
+        RetryPass -- "No" --> FailPackage["Fail Loudly (Fact Check Failed)"]
     end
 
     subgraph Compile["4. LaTeX Compilation & Packaging"]
