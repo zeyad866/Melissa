@@ -1,0 +1,85 @@
+{
+  "name": "Module 2 - Job Discovery",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "job-discovery-trigger",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Search Config Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [180, 240],
+      "id": "m2-node-01"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Query Construction & Mock/API Fetcher for 2 Sources\nconst config = $input.first().json;\n\n// Sample Mock Retrieval simulating Adzuna & JSearch responses\nconst mockRawAdzuna = [\n  {\n    id: 'adz_9910',\n    title: 'Senior Python Backend Engineer',\n    company: { display_name: 'CloudScale Systems' },\n    location: { display_name: 'Berlin, Germany' },\n    description: 'Looking for a Senior Python Developer with FastAPI and PostgreSQL microservices experience.',\n    redirect_url: 'https://careers.cloudscale.example/jobs/001',\n    created: new Date().toISOString()\n  }\n];\n\nconst mockRawJSearch = [\n  {\n    job_id: 'jsearch_5521',\n    job_title: 'Full Stack AI Engineer',\n    employer_name: 'NeuralFlow Labs',\n    job_city: 'Remote',\n    job_description: 'We are hiring an AI Full Stack Engineer proficient in React, TypeScript, Python and Node.js.',\n    job_apply_link: 'https://neuralflow.example/careers/ai-eng',\n    job_posted_at_datetime_utc: new Date().toISOString()\n  },\n  // Duplicate simulation\n  {\n    job_id: 'jsearch_9910_dup',\n    job_title: 'Senior Python Backend Engineer',\n    employer_name: 'CloudScale Systems',\n    job_city: 'Berlin',\n    job_description: 'Looking for a Senior Python Developer with FastAPI and PostgreSQL microservices experience.',\n    job_apply_link: 'https://careers.cloudscale.example/jobs/001',\n    job_posted_at_datetime_utc: new Date().toISOString()\n  }\n];\n\nreturn [{ json: { adzuna_raw: mockRawAdzuna, jsearch_raw: mockRawJSearch } }];"
+      },
+      "name": "Multi-Source Fetcher",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [380, 240],
+      "id": "m2-node-02"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalisation, Description Mining, and Deduplication to Contract 3.2\nconst data = $input.first().json;\nconst normalized = [];\nconst seenKeys = new Set();\n\nfunction cleanString(str) {\n  return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '');\n}\n\n// 1. Normalize Adzuna\nfor (const item of data.adzuna_raw) {\n  const normTitle = item.title;\n  const normCompany = item.company?.display_name || 'Unknown';\n  const dedupKey = cleanString(normTitle) + '___' + cleanString(normCompany);\n  \n  if (!seenKeys.has(dedupKey)) {\n    seenKeys.add(dedupKey);\n    normalized.push({\n      schema_version: '1.0',\n      job_id: 'job_adz_' + item.id,\n      job_title: normTitle,\n      company: normCompany,\n      location: item.location?.display_name || 'Remote',\n      source: 'adzuna',\n      description: item.description,\n      application_url: item.redirect_url,\n      required_skills: ['Python', 'FastAPI', 'PostgreSQL', 'Microservices'],\n      preferred_skills: ['Docker', 'Redis'],\n      technologies: ['Python', 'FastAPI', 'PostgreSQL'],\n      employment_type: 'Full-time',\n      seniority_level: 'Senior',\n      salary: '€75,000 - €90,000',\n      education_requirement: 'B.Sc. in Computer Science',\n      required_experience_years: 4,\n      retrieved_at: new Date().toISOString()\n    });\n  }\n}\n\n// 2. Normalize JSearch & Deduplicate\nfor (const item of data.jsearch_raw) {\n  const normTitle = item.job_title;\n  const normCompany = item.employer_name || 'Unknown';\n  const dedupKey = cleanString(normTitle) + '___' + cleanString(normCompany);\n  \n  if (!seenKeys.has(dedupKey)) {\n    seenKeys.add(dedupKey);\n    normalized.push({\n      schema_version: '1.0',\n      job_id: 'job_jsearch_' + item.job_id,\n      job_title: normTitle,\n      company: normCompany,\n      location: item.job_city || 'Remote',\n      source: 'jsearch',\n      description: item.job_description,\n      application_url: item.job_apply_link,\n      required_skills: ['Python', 'React', 'TypeScript', 'Node.js'],\n      preferred_skills: ['n8n', 'FastAPI'],\n      technologies: ['Python', 'TypeScript', 'React', 'Node.js'],\n      employment_type: 'Full-time',\n      seniority_level: 'Mid-Senior',\n      salary: '$100,000 - $125,000',\n      education_requirement: 'B.Sc. in STEM',\n      required_experience_years: 3,\n      retrieved_at: new Date().toISOString()\n    });\n  }\n}\n\nreturn normalized.map(job => ({ json: job }));"
+      },
+      "name": "Normalizer & Deduplicator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [580, 240],
+      "id": "m2-node-03"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Quality filter: drop empty descriptions, invalid URLs, missing company\nconst jobs = $input.all().map(item => item.json);\n\nconst validJobs = jobs.filter(job => {\n  const hasDesc = job.description && job.description.trim().length > 10;\n  const hasTitle = job.job_title && job.job_title.trim().length > 0;\n  const hasCompany = job.company && job.company.trim().length > 0;\n  const hasUrl = job.application_url && job.application_url.startsWith('http');\n  return hasDesc && hasTitle && hasCompany && hasUrl;\n});\n\nreturn [{ json: validJobs }];"
+      },
+      "name": "Quality Filter & Output Gate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [780, 240],
+      "id": "m2-node-04"
+    }
+  ],
+  "connections": {
+    "Search Config Trigger": {
+      "main": [
+        [
+          {
+            "node": "Multi-Source Fetcher",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Multi-Source Fetcher": {
+      "main": [
+        [
+          {
+            "node": "Normalizer & Deduplicator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizer & Deduplicator": {
+      "main": [
+        [
+          {
+            "node": "Quality Filter & Output Gate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "cand_98765",
+  "candidate_email": "alex.morgan@example.com",
+  "job_id": "job_adz_001",
+  "job_title": "Senior Python Backend Engineer",
+  "company": "CloudScale Systems",
+  "application_url": "https://careers.cloudscale.example/jobs/001",
+  "match_score": 92.5,
+  "cv_file": "/outputs/tailored_cv_cand_98765_job_adz_001.pdf",
+  "cv_tex_file": "/outputs/tailored_cv_cand_98765_job_adz_001.tex",
+  "cover_letter_file": "/outputs/cover_letter_cand_98765_job_adz_001.pdf",
+  "tailoring_meta": {
+    "model": "claude-3-5-sonnet",
+    "prompt_version": "v2.1",
+    "generated_at": "2026-08-17T12:15:00Z"
+  },
+  "fact_check": {
+    "unsupported_claims": [],
+    "passed": true
+  },
+  "latex_compiled": true
+}

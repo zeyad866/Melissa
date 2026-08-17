@@ -1,0 +1,108 @@
+[
+  {
+    "schema_version": "1.0",
+    "job_id": "job_adz_001",
+    "job_title": "Senior Python Backend Engineer",
+    "company": "CloudScale Systems",
+    "application_url": "https://careers.cloudscale.example/jobs/001",
+    "match_score": 92.5,
+    "score_breakdown": {
+      "skill_score": 100.0,
+      "skill_weight": 0.40,
+      "semantic_score": 90.0,
+      "semantic_weight": 0.30,
+      "experience_score": 100.0,
+      "experience_weight": 0.20,
+      "preferred_skill_score": 50.0,
+      "preferred_skill_weight": 0.10
+    },
+    "matched_skills": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker",
+      "RESTful APIs"
+    ],
+    "missing_skills": [],
+    "experience_match": {
+      "candidate_years": 4.5,
+      "required_years": 4,
+      "satisfied": true
+    },
+    "semantic_similarity": 0.89,
+    "decision": "APPLY",
+    "explanation": "Strong 100% match on all required technical skills (Python, FastAPI, PostgreSQL, Docker) with 4.5 years experience exceeding the 4.0 year requirement. High semantic alignment in distributed systems.",
+    "method": "hybrid_v1",
+    "ranked_at": "2026-08-17T12:10:00Z"
+  },
+  {
+    "schema_version": "1.0",
+    "job_id": "job_jsearch_002",
+    "job_title": "Full Stack AI Engineer",
+    "company": "NeuralFlow Labs",
+    "application_url": "https://neuralflow.example/careers/ai-eng",
+    "match_score": 81.0,
+    "score_breakdown": {
+      "skill_score": 80.0,
+      "skill_weight": 0.40,
+      "semantic_score": 85.0,
+      "semantic_weight": 0.30,
+      "experience_score": 100.0,
+      "experience_weight": 0.20,
+      "preferred_skill_score": 50.0,
+      "preferred_skill_weight": 0.10
+    },
+    "matched_skills": [
+      "Python",
+      "React",
+      "TypeScript",
+      "Node.js"
+    ],
+    "missing_skills": [],
+    "experience_match": {
+      "candidate_years": 4.5,
+      "required_years": 3,
+      "satisfied": true
+    },
+    "semantic_similarity": 0.83,
+    "decision": "REVIEW",
+    "explanation": "Good match across Full Stack capabilities (React, Node, Python). Candidate has high potential fit with AI workflows, recommended for human review.",
+    "method": "hybrid_v1",
+    "ranked_at": "2026-08-17T12:10:00Z"
+  },
+  {
+    "schema_version": "1.0",
+    "job_id": "job_jooble_003",
+    "job_title": "Junior Java Developer",
+    "company": "Fintech Legacy Corp",
+    "application_url": "https://fintechlegacy.example/apply/java-jr",
+    "match_score": 15.0,
+    "score_breakdown": {
+      "skill_score": 0.0,
+      "skill_weight": 0.40,
+      "semantic_score": 25.0,
+      "semantic_weight": 0.30,
+      "experience_score": 100.0,
+      "experience_weight": 0.20,
+      "preferred_skill_score": 0.0,
+      "preferred_skill_weight": 0.10
+    },
+    "matched_skills": [],
+    "missing_skills": [
+      "Java",
+      "Spring Boot",
+      "Oracle DB",
+      "SOAP"
+    ],
+    "experience_match": {
+      "candidate_years": 4.5,
+      "required_years": 1,
+      "satisfied": true
+    },
+    "semantic_similarity": 0.21,
+    "decision": "REJECT",
+    "explanation": "Candidate lacks all core required technologies (Java, Spring Boot, Oracle DB, SOAP). Tech stack mismatch.",
+    "method": "hybrid_v1",
+    "ranked_at": "2026-08-17T12:10:00Z"
+  }
+]

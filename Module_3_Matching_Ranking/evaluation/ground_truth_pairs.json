@@ -1,0 +1,26 @@
+{
+  "description": "20+ candidate-job pairs labelled for matching relevance and rank calibration",
+  "candidate_profile_id": "cand_98765",
+  "labelled_pairs": [
+    { "pair_id": "pair_01", "job_id": "job_01", "job_title": "Senior Python Backend Engineer", "human_label": "APPLY", "human_score_1_to_5": 5, "expected_rank": 1 },
+    { "pair_id": "pair_02", "job_id": "job_02", "job_title": "FastAPI Distributed Systems Architect", "human_label": "APPLY", "human_score_1_to_5": 5, "expected_rank": 2 },
+    { "pair_id": "pair_03", "job_id": "job_03", "job_title": "Python Microservices Developer", "human_label": "APPLY", "human_score_1_to_5": 4.5, "expected_rank": 3 },
+    { "pair_id": "pair_04", "job_id": "job_04", "job_title": "Full Stack AI Engineer", "human_label": "APPLY", "human_score_1_to_5": 4.0, "expected_rank": 4 },
+    { "pair_id": "pair_05", "job_id": "job_05", "job_title": "Backend Software Engineer (Django/PostgreSQL)", "human_label": "REVIEW", "human_score_1_to_5": 3.8, "expected_rank": 5 },
+    { "pair_id": "pair_06", "job_id": "job_06", "job_title": "Data Platform Engineer (Python/SQL)", "human_label": "REVIEW", "human_score_1_to_5": 3.5, "expected_rank": 6 },
+    { "pair_id": "pair_07", "job_id": "job_07", "job_title": "API Integration Engineer (n8n/Python)", "human_label": "REVIEW", "human_score_1_to_5": 3.5, "expected_rank": 7 },
+    { "pair_id": "pair_08", "job_id": "job_08", "job_title": "Cloud Infrastructure Engineer (AWS/Docker)", "human_label": "REVIEW", "human_score_1_to_5": 3.0, "expected_rank": 8 },
+    { "pair_id": "pair_09", "job_id": "job_09", "job_title": "Full Stack Python/React Developer", "human_label": "REVIEW", "human_score_1_to_5": 3.0, "expected_rank": 9 },
+    { "pair_id": "pair_10", "job_id": "job_10", "job_title": "Database Administrator (PostgreSQL)", "human_label": "REVIEW", "human_score_1_to_5": 2.8, "expected_rank": 10 },
+    { "pair_id": "pair_11", "job_id": "job_11", "job_title": "QA Automation Engineer (Selenium/Python)", "human_label": "REVIEW", "human_score_1_to_5": 2.5, "expected_rank": 11 },
+    { "pair_id": "pair_12", "job_id": "job_12", "job_title": "Machine Learning Engineer (NLP)", "human_label": "REVIEW", "human_score_1_to_5": 2.5, "expected_rank": 12 },
+    { "pair_id": "pair_13", "job_id": "job_13", "job_title": "Junior Java Spring Boot Engineer", "human_label": "REJECT", "human_score_1_to_5": 1.2, "expected_rank": 13 },
+    { "pair_id": "pair_14", "job_id": "job_14", "job_title": "Frontend Vue.js Developer", "human_label": "REJECT", "human_score_1_to_5": 1.0, "expected_rank": 14 },
+    { "pair_id": "pair_15", "job_id": "job_15", "job_title": "iOS Swift Mobile Developer", "human_label": "REJECT", "human_score_1_to_5": 1.0, "expected_rank": 15 },
+    { "pair_id": "pair_16", "job_id": "job_16", "job_title": "Lead DevOps & SRE Engineer", "human_label": "REJECT", "human_score_1_to_5": 1.0, "expected_rank": 16 },
+    { "pair_id": "pair_17", "job_id": "job_17", "job_title": "Embedded C++ Firmware Engineer", "human_label": "REJECT", "human_score_1_to_5": 1.0, "expected_rank": 17 },
+    { "pair_id": "pair_18", "job_id": "job_18", "job_title": "Graphic Designer & UI Artist", "human_label": "REJECT", "human_score_1_to_5": 1.0, "expected_rank": 18 },
+    { "pair_id": "pair_19", "job_id": "job_19", "job_title": "Product Marketing Manager", "human_label": "REJECT", "human_score_1_to_5": 1.0, "expected_rank": 19 },
+    { "pair_id": "pair_20", "job_id": "job_20", "job_title": "Cybersecurity SOC Analyst", "human_label": "REJECT", "human_score_1_to_5": 1.0, "expected_rank": 20 }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "name": "Module 5 - Application & Tracking",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "application-package-trigger",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Package Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [180, 240],
+      "id": "m5-node-01"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Idempotency & Duplicate Check against memory / database store\nconst pkg = $input.first().json;\n\n// Simulate database check\nconst dedupKey = `${pkg.candidate_id}_${pkg.job_id}`;\nconst appliedDatabase = new Set(); // in-memory mock store\n\nif (appliedDatabase.has(dedupKey)) {\n  return [{\n    json: {\n      schema_version: '1.0',\n      application_id: 'app_' + Date.now(),\n      candidate_id: pkg.candidate_id,\n      job_id: pkg.job_id,\n      company: pkg.company,\n      job_title: pkg.job_title,\n      approval_decision: 'REVIEW',\n      application_status: 'skipped_duplicate',\n      submission_method: 'mock',\n      submitted_at: null,\n      attempts: 0,\n      confirmation_sent: false,\n      error: null\n    }\n  }];\n}\n\nreturn [{ json: { package: pkg, dedupKey: dedupKey } }];"
+      },
+      "name": "Duplicate Protection Check",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [380, 240],
+      "id": "m5-node-02"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Human Approval Gate simulation (Can be replaced by n8n Form / Email buttons)\nconst input = $input.first().json;\nconst pkg = input.package;\n\n// Simulated Approval decision: 'APPROVED'\nconst approvalDecision = 'APPROVED';\n\nreturn [{\n  json: {\n    ...input,\n    approval_decision: approvalDecision\n  }\n}];"
+      },
+      "name": "Human Approval Gate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [580, 240],
+      "id": "m5-node-03"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Submission execution, persistence, and Contract 3.5 status output\nconst input = $input.first().json;\nconst pkg = input.package;\nconst decision = input.approval_decision;\n\nlet status = 'pending_approval';\nlet submittedAt = null;\nlet confirmationSent = false;\n\nif (decision === 'APPROVED') {\n  status = 'submitted';\n  submittedAt = new Date().toISOString();\n  confirmationSent = true; // Email notification sent with PDF attachments\n} else if (decision === 'REJECTED') {\n  status = 'failed';\n}\n\nconst statusPayload = {\n  schema_version: '1.0',\n  application_id: 'app_' + Date.now(),\n  candidate_id: pkg.candidate_id,\n  job_id: pkg.job_id,\n  company: pkg.company,\n  job_title: pkg.job_title,\n  approval_decision: decision,\n  application_status: status,\n  submission_method: 'mock',\n  submitted_at: submittedAt,\n  attempts: 1,\n  confirmation_sent: confirmationSent,\n  error: null\n};\n\nreturn [{ json: statusPayload }];"
+      },
+      "name": "Submission, Tracking & Notification",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [780, 240],
+      "id": "m5-node-04"
+    }
+  ],
+  "connections": {
+    "Package Trigger": {
+      "main": [
+        [
+          {
+            "node": "Duplicate Protection Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Duplicate Protection Check": {
+      "main": [
+        [
+          {
+            "node": "Human Approval Gate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Human Approval Gate": {
+      "main": [
+        [
+          {
+            "node": "Submission, Tracking & Notification",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}

@@ -1,0 +1,55 @@
+{
+  "description": "Ground truth benchmark containing 30+ labelled jobs for relevance and deduplication evaluation",
+  "labelled_jobs": [
+    { "job_id": "eval_01", "job_title": "Senior Python Backend Engineer", "company": "CloudScale", "relevant_for_backend_cv": true },
+    { "job_id": "eval_02", "job_title": "Full Stack AI Developer", "company": "NeuralFlow", "relevant_for_backend_cv": true },
+    { "job_id": "eval_03", "job_title": "Python Microservices Developer", "company": "DataMesh", "relevant_for_backend_cv": true },
+    { "job_id": "eval_04", "job_title": "Junior Java Spring Boot Engineer", "company": "Fintech Corp", "relevant_for_backend_cv": false },
+    { "job_id": "eval_05", "job_title": "Lead DevOps & SRE Engineer", "company": "ScaleOps", "relevant_for_backend_cv": false },
+    { "job_id": "eval_06", "job_title": "FastAPI Distributed Systems Architect", "company": "PyCloud", "relevant_for_backend_cv": true },
+    { "job_id": "eval_07", "job_title": "iOS Swift Mobile Developer", "company": "AppCraft", "relevant_for_backend_cv": false },
+    { "job_id": "eval_08", "job_title": "Backend Software Engineer (Django/PostgreSQL)", "company": "SaaSFactory", "relevant_for_backend_cv": true },
+    { "job_id": "eval_09", "job_title": "Senior React Frontend Specialist", "company": "PixelStudio", "relevant_for_backend_cv": false },
+    { "job_id": "eval_10", "job_title": "Data Platform Engineer (Python/SQL)", "company": "InsightHub", "relevant_for_backend_cv": true },
+    { "job_id": "eval_11", "job_title": "Embedded C++ Firmware Engineer", "company": "RoboTech", "relevant_for_backend_cv": false },
+    { "job_id": "eval_12", "job_title": "Cloud Infrastructure Engineer (AWS/Docker)", "company": "InfraStack", "relevant_for_backend_cv": true },
+    { "job_id": "eval_13", "job_title": "Machine Learning Engineer (NLP/LLMs)", "company": "GenAI Co", "relevant_for_backend_cv": true },
+    { "job_id": "eval_14", "job_title": "Frontend Vue.js Developer", "company": "WebWorks", "relevant_for_backend_cv": false },
+    { "job_id": "eval_15", "job_title": "Staff Backend Engineer (Python/Go)", "company": "HyperScale", "relevant_for_backend_cv": true },
+    { "job_id": "eval_16", "job_title": "Graphic Designer & UI Artist", "company": "CreativeHub", "relevant_for_backend_cv": false },
+    { "job_id": "eval_17", "job_title": "API Integration Engineer (n8n/Python)", "company": "AutoWorkflow", "relevant_for_backend_cv": true },
+    { "job_id": "eval_18", "job_title": "Product Marketing Manager", "company": "GrowthX", "relevant_for_backend_cv": false },
+    { "job_id": "eval_19", "job_title": "Software Engineer II - Core Backend", "company": "FintechTech", "relevant_for_backend_cv": true },
+    { "job_id": "eval_20", "job_title": "QA Automation Engineer (Selenium/Python)", "company": "TestLab", "relevant_for_backend_cv": false },
+    { "job_id": "eval_21", "job_title": "Backend Developer (Node.js/TypeScript)", "company": "ServerlessInc", "relevant_for_backend_cv": true },
+    { "job_id": "eval_22", "job_title": "Cybersecurity SOC Analyst", "company": "SecureNet", "relevant_for_backend_cv": false },
+    { "job_id": "eval_23", "job_title": "Database Administrator (PostgreSQL)", "company": "DataReliability", "relevant_for_backend_cv": true },
+    { "job_id": "eval_24", "job_title": "Android Kotlin Engineer", "company": "MobileMinds", "relevant_for_backend_cv": false },
+    { "job_id": "eval_25", "job_title": "Python Software Developer (FastAPI/Docker)", "company": "SpeedyDev", "relevant_for_backend_cv": true },
+    { "job_id": "eval_26", "job_title": "Sales Development Representative", "company": "B2BLead", "relevant_for_backend_cv": false },
+    { "job_id": "eval_27", "job_title": "Cloud Backend Engineer", "company": "CloudNative", "relevant_for_backend_cv": true },
+    { "job_id": "eval_28", "job_title": "Scrum Master & Agile Coach", "company": "AgileWay", "relevant_for_backend_cv": false },
+    { "job_id": "eval_29", "job_title": "Full Stack Python/React Engineer", "company": "ModernApp", "relevant_for_backend_cv": true },
+    { "job_id": "eval_30", "job_title": "Technical Writer - Developer Documentation", "company": "DocuCorp", "relevant_for_backend_cv": false }
+  ],
+  "known_duplicate_pairs": [
+    {
+      "source_a_id": "adz_9910",
+      "source_b_id": "jsearch_9910_dup",
+      "title_a": "Senior Python Backend Engineer",
+      "title_b": "Senior Python Backend Engineer",
+      "company_a": "CloudScale Systems",
+      "company_b": "CloudScale Systems",
+      "is_duplicate": true
+    },
+    {
+      "source_a_id": "adz_7741",
+      "source_b_id": "jsearch_8812",
+      "title_a": "Backend Engineer",
+      "title_b": "Backend Engineer",
+      "company_a": "TechCorp",
+      "company_b": "FinTechCorp",
+      "is_duplicate": false
+    }
+  ]
+}

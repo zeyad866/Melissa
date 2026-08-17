@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "candidate_id": "cand_98765",
+  "candidate_name": "Alex Morgan",
+  "email": "alex.morgan@example.com",
+  "phone": "+1-555-0199",
+  "location": "Berlin, Germany",
+  "experience_years": 4.5,
+  "job_titles": [
+    "Software Engineer",
+    "Full Stack Developer",
+    "Backend Developer"
+  ],
+  "preferred_roles": [
+    "Senior Backend Engineer",
+    "Full Stack AI Engineer",
+    "Python Backend Developer"
+  ],
+  "technical_skills": [
+    "RESTful APIs",
+    "Microservices",
+    "Distributed Systems",
+    "Relational Databases",
+    "Containerization",
+    "CI/CD"
+  ],
+  "programming_languages": [
+    "Python",
+    "TypeScript",
+    "JavaScript",
+    "SQL"
+  ],
+  "frameworks": [
+    "FastAPI",
+    "Django",
+    "Node.js",
+    "Express",
+    "React"
+  ],
+  "tools": [
+    "Docker",
+    "Git",
+    "PostgreSQL",
+    "Redis",
+    "n8n",
+    "Linux"
+  ],
+  "keywords": [
+    "Backend Engineer",
+    "Python Developer",
+    "FastAPI",
+    "Full Stack Engineer",
+    "Distributed Systems"
+  ],
+  "soft_skills": [
+    "Problem Solving",
+    "Technical Documentation",
+    "Team Collaboration",
+    "Agile/Scrum"
+  ],
+  "certifications": [
+    "AWS Certified Solutions Architect - Associate",
+    "PostgreSQL Associate Certification"
+  ],
+  "education": [
+    {
+      "degree": "B.Sc. in Computer Science",
+      "field": "Computer Science & Artificial Intelligence",
+      "institution": "Technical University of Berlin",
+      "year": 2021
+    }
+  ],
+  "projects": [
+    {
+      "name": "Distributed Task Scheduler",
+      "description": "High-throughput task queue with Redis and FastAPI handling 10k req/sec.",
+      "technologies": ["Python", "FastAPI", "Redis", "Docker"]
+    },
+    {
+      "name": "Automated ETL Pipeline",
+      "description": "Streamlined data pipeline syncing PostgreSQL with external analytics endpoints.",
+      "technologies": ["Python", "PostgreSQL", "n8n"]
+    }
+  ],
+  "extraction_meta": {
+    "model": "gemini-1.5-flash",
+    "prompt_version": "v1.2",
+    "extracted_at": "2026-08-17T12:00:00Z",
+    "confidence": 0.96
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "search_terms": [
+    "Backend Engineer",
+    "Python Developer",
+    "FastAPI"
+  ],
+  "location": "Berlin, Germany",
+  "remote": true,
+  "seniority": "Mid-Senior",
+  "max_results_per_source": 10,
+  "sources": [
+    "adzuna",
+    "jsearch"
+  ]
+}

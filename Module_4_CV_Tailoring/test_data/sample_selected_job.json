@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "job_id": "job_adz_001",
+  "job_title": "Senior Python Backend Engineer",
+  "company": "CloudScale Systems",
+  "location": "Berlin, Germany",
+  "application_url": "https://careers.cloudscale.example/jobs/001",
+  "description": "We are seeking a Senior Python Backend Engineer to build scalable microservices using FastAPI, PostgreSQL, and Redis. You will lead the architecture of distributed task queues.",
+  "match_score": 92.5,
+  "matched_skills": [
+    "Python",
+    "FastAPI",
+    "PostgreSQL",
+    "Docker",
+    "RESTful APIs"
+  ],
+  "missing_skills": []
+}

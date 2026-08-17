@@ -1,0 +1,64 @@
+{
+  "name": "Module 3 - Matching & Ranking",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "matching-trigger",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Matching Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [180, 240],
+      "id": "m3-node-01"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Load candidate profile and jobs array\nconst input = $input.first().json;\nconst candidate = input.candidate_profile;\nconst jobs = input.jobs;\n\nif (!candidate || !jobs || !Array.isArray(jobs)) {\n  throw new Error('CONTRACT ERROR: Module 3 requires candidate_profile and jobs array');\n}\n\nreturn [{ json: { candidate, jobs } }];"
+      },
+      "name": "Input Validator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [380, 240],
+      "id": "m3-node-02"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Hybrid Matcher with Keyword Overlap, Semantic Score, Experience Check & Explainability\nconst data = $input.first().json;\nconst cand = data.candidate;\nconst jobs = data.jobs;\n\n// Synonym normalization map\nconst synonyms = {\n  'js': 'javascript',\n  'ts': 'typescript',\n  'py': 'python',\n  'postgres': 'postgresql',\n  'k8s': 'kubernetes'\n};\n\nfunction normalizeSkill(s) {\n  const lower = (s || '').toLowerCase().trim();\n  return synonyms[lower] || lower;\n}\n\nconst candSkills = new Set([\n  ...(cand.technical_skills || []),\n  ...(cand.programming_languages || []),\n  ...(cand.frameworks || []),\n  ...(cand.tools || [])\n].map(normalizeSkill));\n\nconst ranked = jobs.map(job => {\n  const reqSkills = (job.required_skills || []).map(normalizeSkill);\n  const prefSkills = (job.preferred_skills || []).map(normalizeSkill);\n  \n  const matched = reqSkills.filter(s => candSkills.has(s));\n  const missing = reqSkills.filter(s => !candSkills.has(s));\n  \n  const skillScore = reqSkills.length > 0 ? (matched.length / reqSkills.length) * 100 : 70.0;\n  const prefMatched = prefSkills.filter(s => candSkills.has(s));\n  const prefScore = prefSkills.length > 0 ? (prefMatched.length / prefSkills.length) * 100 : 50.0;\n  \n  const reqYears = job.required_experience_years || 0;\n  const candYears = cand.experience_years || 0;\n  const expSatisfied = candYears >= reqYears;\n  const expScore = expSatisfied ? 100.0 : Math.max(0, (candYears / reqYears) * 100);\n  \n  // Simulated semantic similarity (0.0 to 1.0)\n  const semanticSim = Math.min(1.0, (skillScore / 100) * 0.7 + (expSatisfied ? 0.3 : 0.1));\n  const semanticScore = semanticSim * 100;\n  \n  // Weighted Hybrid Formula: 40% Skills, 30% Semantic, 20% Exp, 10% Preferred\n  const finalScore = Math.round(\n    (skillScore * 0.40 + semanticScore * 0.30 + expScore * 0.20 + prefScore * 0.10) * 10\n  ) / 10;\n  \n  let decision = 'REJECT';\n  if (finalScore >= 75.0) decision = 'APPLY';\n  else if (finalScore >= 50.0) decision = 'REVIEW';\n  \n  const explanation = `${matched.length}/${reqSkills.length} required skills matched (${matched.join(', ') || 'none'}). Experience check: ${candYears}y vs ${reqYears}y required (${expSatisfied ? 'Satisfied' : 'Deficit'}). Final score: ${finalScore}.`;\n  \n  return {\n    schema_version: '1.0',\n    job_id: job.job_id,\n    job_title: job.job_title,\n    company: job.company,\n    application_url: job.application_url,\n    match_score: finalScore,\n    score_breakdown: {\n      skill_score: skillScore,\n      skill_weight: 0.40,\n      semantic_score: semanticScore,\n      semantic_weight: 0.30,\n      experience_score: expScore,\n      experience_weight: 0.20,\n      preferred_skill_score: prefScore,\n      preferred_skill_weight: 0.10\n    },\n    matched_skills: matched,\n    missing_skills: missing,\n    experience_match: {\n      candidate_years: candYears,\n      required_years: reqYears,\n      satisfied: expSatisfied\n    },\n    semantic_similarity: Math.round(semanticSim * 100) / 100,\n    decision: decision,\n    explanation: explanation,\n    method: 'hybrid_v1',\n    ranked_at: new Date().toISOString()\n  };\n});\n\n// Sort descending with tie-breakers\nranked.sort((a, b) => {\n  if (b.match_score !== a.match_score) return b.match_score - a.match_score;\n  return b.semantic_similarity - a.semantic_similarity;\n});\n\nreturn [{ json: ranked }];"
+      },
+      "name": "Hybrid Matching & Ranking Engine",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [580, 240],
+      "id": "m3-node-03"
+    }
+  ],
+  "connections": {
+    "Matching Trigger": {
+      "main": [
+        [
+          {
+            "node": "Input Validator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Input Validator": {
+      "main": [
+        [
+          {
+            "node": "Hybrid Matching & Ranking Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}

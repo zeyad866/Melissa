@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ApplicationPackagePayload",
+  "description": "Interface Contract 3.4: Output of Module 4 (CV Tailoring & Documents) consumed by Module 5 (Application & Tracking)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "candidate_id",
+    "candidate_email",
+    "job_id",
+    "job_title",
+    "company",
+    "application_url",
+    "match_score",
+    "cv_file",
+    "cv_tex_file",
+    "cover_letter_file",
+    "tailoring_meta",
+    "fact_check",
+    "latex_compiled"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$"
+    },
+    "candidate_id": {
+      "type": "string"
+    },
+    "candidate_email": {
+      "type": "string",
+      "format": "email"
+    },
+    "job_id": {
+      "type": "string"
+    },
+    "job_title": {
+      "type": "string"
+    },
+    "company": {
+      "type": "string"
+    },
+    "application_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "match_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "cv_file": {
+      "type": "string",
+      "description": "Path or URL to generated PDF CV"
+    },
+    "cv_tex_file": {
+      "type": "string",
+      "description": "Path or URL to generated LaTeX source file"
+    },
+    "cover_letter_file": {
+      "type": "string",
+      "description": "Path or URL to generated cover letter text/PDF file"
+    },
+    "tailoring_meta": {
+      "type": "object",
+      "required": ["model", "prompt_version", "generated_at"],
+      "properties": {
+        "model": { "type": "string" },
+        "prompt_version": { "type": "string" },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "fact_check": {
+      "type": "object",
+      "required": ["unsupported_claims", "passed"],
+      "properties": {
+        "unsupported_claims": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "passed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "latex_compiled": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

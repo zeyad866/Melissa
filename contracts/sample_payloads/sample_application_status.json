@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "application_id": "app_2026_00849",
+  "candidate_id": "cand_98765",
+  "job_id": "job_adz_001",
+  "company": "CloudScale Systems",
+  "job_title": "Senior Python Backend Engineer",
+  "approval_decision": "APPROVED",
+  "application_status": "submitted",
+  "submission_method": "mock",
+  "submitted_at": "2026-08-17T12:20:00Z",
+  "attempts": 1,
+  "confirmation_sent": true,
+  "error": null
+}

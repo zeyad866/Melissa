@@ -1,0 +1,106 @@
+[
+  {
+    "schema_version": "1.0",
+    "job_id": "job_adz_001",
+    "job_title": "Senior Python Backend Engineer",
+    "company": "CloudScale Systems",
+    "location": "Berlin, Germany",
+    "source": "adzuna",
+    "description": "We are seeking a Senior Python Backend Engineer to build scalable microservices using FastAPI, PostgreSQL, and Redis. You will lead the architecture of distributed task queues and collaborate with frontend engineers.",
+    "application_url": "https://careers.cloudscale.example/jobs/001",
+    "required_skills": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker",
+      "RESTful APIs"
+    ],
+    "preferred_skills": [
+      "Redis",
+      "CI/CD",
+      "Kubernetes",
+      "AWS"
+    ],
+    "technologies": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "Git"
+    ],
+    "employment_type": "Full-time",
+    "seniority_level": "Senior",
+    "salary": "€75,000 - €90,000",
+    "education_requirement": "B.Sc. in Computer Science or equivalent",
+    "required_experience_years": 4,
+    "retrieved_at": "2026-08-17T12:05:00Z"
+  },
+  {
+    "schema_version": "1.0",
+    "job_id": "job_jsearch_002",
+    "job_title": "Full Stack AI Engineer",
+    "company": "NeuralFlow Labs",
+    "location": "Remote",
+    "source": "jsearch",
+    "description": "Join our AI engineering team building intelligent automation workflows. You will design backend services in Python/Node.js, build responsive React UIs, and integrate LLM agents.",
+    "application_url": "https://neuralflow.example/careers/ai-eng",
+    "required_skills": [
+      "Python",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "RESTful APIs"
+    ],
+    "preferred_skills": [
+      "n8n",
+      "FastAPI",
+      "Docker",
+      "PostgreSQL"
+    ],
+    "technologies": [
+      "Python",
+      "TypeScript",
+      "React",
+      "Node.js",
+      "PostgreSQL"
+    ],
+    "employment_type": "Full-time",
+    "seniority_level": "Mid-Senior",
+    "salary": "$100,000 - $125,000",
+    "education_requirement": "B.Sc. in STEM",
+    "required_experience_years": 3,
+    "retrieved_at": "2026-08-17T12:05:30Z"
+  },
+  {
+    "schema_version": "1.0",
+    "job_id": "job_jooble_003",
+    "job_title": "Junior Java Developer",
+    "company": "Fintech Legacy Corp",
+    "location": "Frankfurt, Germany",
+    "source": "jooble",
+    "description": "Entry-level position developing banking transactions core modules in Java Spring Boot, Oracle DB, and SOAP web services.",
+    "application_url": "https://fintechlegacy.example/apply/java-jr",
+    "required_skills": [
+      "Java",
+      "Spring Boot",
+      "Oracle DB",
+      "SOAP"
+    ],
+    "preferred_skills": [
+      "Maven",
+      "Hibernate"
+    ],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "Oracle"
+    ],
+    "employment_type": "Full-time",
+    "seniority_level": "Junior",
+    "salary": "€45,000",
+    "education_requirement": "B.Sc. in Computer Science",
+    "required_experience_years": 1,
+    "retrieved_at": "2026-08-17T12:06:00Z"
+  }
+]

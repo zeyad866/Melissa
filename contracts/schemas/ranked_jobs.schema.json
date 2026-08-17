@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RankedJobsListPayload",
+  "description": "Interface Contract 3.3: Output of Module 3 (Matching & Ranking) consumed by Module 4 (CV Tailoring & Documents)",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "schema_version",
+      "job_id",
+      "job_title",
+      "company",
+      "application_url",
+      "match_score",
+      "score_breakdown",
+      "matched_skills",
+      "missing_skills",
+      "experience_match",
+      "semantic_similarity",
+      "decision",
+      "explanation",
+      "method",
+      "ranked_at"
+    ],
+    "properties": {
+      "schema_version": {
+        "type": "string",
+        "pattern": "^[0-9]+\\.[0-9]+(\\.[0-9]+)?$"
+      },
+      "job_id": {
+        "type": "string"
+      },
+      "job_title": {
+        "type": "string"
+      },
+      "company": {
+        "type": "string"
+      },
+      "application_url": {
+        "type": "string",
+        "format": "uri"
+      },
+      "match_score": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100
+      },
+      "score_breakdown": {
+        "type": "object",
+        "properties": {
+          "skill_score": { "type": "number" },
+          "skill_weight": { "type": "number" },
+          "semantic_score": { "type": "number" },
+          "semantic_weight": { "type": "number" },
+          "experience_score": { "type": "number" },
+          "experience_weight": { "type": "number" },
+          "preferred_skill_score": { "type": "number" },
+          "preferred_skill_weight": { "type": "number" }
+        },
+        "additionalProperties": true
+      },
+      "matched_skills": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "missing_skills": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "experience_match": {
+        "type": "object",
+        "required": ["candidate_years", "required_years", "satisfied"],
+        "properties": {
+          "candidate_years": { "type": "number" },
+          "required_years": { "type": "number" },
+          "satisfied": { "type": "boolean" }
+        }
+      },
+      "semantic_similarity": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "decision": {
+        "type": "string",
+        "enum": ["APPLY", "REVIEW", "REJECT"]
+      },
+      "explanation": {
+        "type": "string"
+      },
+      "method": {
+        "type": "string",
+        "description": "Scoring method e.g. 'hybrid_v1' | 'keyword_v1' | 'semantic_v1'"
+      },
+      "ranked_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "additionalProperties": false
+  }
+}

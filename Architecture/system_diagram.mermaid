@@ -1,0 +1,41 @@
+flowchart TD
+    subgraph M1_Box["Module 1: CV Intelligence (Student 1)"]
+        CV_In["CV File (.tex/.pdf)"] --> Parse["File Validator & Parser"]
+        Parse --> LLM_Ext["LLM Structured Extractor"]
+        LLM_Ext --> Val_1["Schema Validator & Repair"]
+        Val_1 --> Prof_Out["candidate_profile.json (Contract 3.1)"]
+    end
+
+    subgraph M2_Box["Module 2: Job Discovery (Student 2)"]
+        Search_In["search_config.json / Keywords"] --> Fetch["Multi-Source Fetcher (Adzuna + JSearch)"]
+        Fetch --> Norm["Normalizer & Description Miner"]
+        Norm --> Dedup["Fuzzy Deduplicator & Filter"]
+        Dedup --> Jobs_Out["jobs.json (Contract 3.2)"]
+    end
+
+    subgraph M3_Box["Module 3: Matching & Ranking (Student 3)"]
+        Prof_Out --> Match_Eng["Hybrid Scorer (Keyword + Semantic + Experience)"]
+        Jobs_Out --> Match_Eng
+        Match_Eng --> Rank["Ranker & Tie-Breaker"]
+        Rank --> Classify["Threshold Classifier (APPLY / REVIEW / REJECT)"]
+        Classify --> Ranked_Out["ranked_jobs.json (Contract 3.3)"]
+    end
+
+    subgraph M4_Box["Module 4: CV Tailoring (Student 4)"]
+        Ranked_Out --> Filter_Apply{"decision == APPLY"}
+        Filter_Apply -- Yes --> Tailor["Section-Wise Tailor & Cover Letter Gen"]
+        CV_In --> Tailor
+        Tailor --> FactCheck{"Fact-Check Gate (Unsupported Claims == 0)"}
+        FactCheck -- Pass --> Compile["LaTeX to PDF Compiler"]
+        FactCheck -- Fail --> Retry["Repair Prompt / Log Fail"]
+        Compile --> Pkg_Out["application_package.json (Contract 3.4)"]
+    end
+
+    subgraph M5_Box["Module 5: Application & Tracking (Student 5)"]
+        Pkg_Out --> Dedup_Check{"Duplicate Check"}
+        Dedup_Check -- Unique --> Approval["Human Approval Gate (Email / Form)"]
+        Approval -- Approved --> Submit["Job Submission (API / Mock)"]
+        Submit --> Persist["Tracking Store (Postgres / Supabase)"]
+        Persist --> Notify["Confirmation Email with PDF Attachments"]
+        Notify --> Status_Out["application_status.json (Contract 3.5)"]
+    end

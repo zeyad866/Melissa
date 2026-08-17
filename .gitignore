@@ -1,0 +1,38 @@
+# OS and Editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Environment Variables and Secrets
+.env
+.env.local
+*.pem
+*.key
+credentials.json
+
+# Node & Python caches
+node_modules/
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+
+# Build & Compilation artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Test outputs and temporary run logs
+/outputs/*.pdf
+/outputs/*.docx
+/scratch/
+tmp/

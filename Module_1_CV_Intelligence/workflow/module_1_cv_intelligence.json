@@ -1,0 +1,89 @@
+{
+  "name": "Module 1 - CV Intelligence",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cv-intake",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Webhook Trigger / CV Intake",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [180, 240],
+      "id": "m1-node-01"
+    },
+    {
+      "parameters": {
+        "jsCode": "// File validation: existence, size (<5MB), extension/MIME\nconst input = $input.first().json;\nconst rawFile = input.cv_content || '';\nconst fileType = input.file_type || 'tex';\n\nif (!rawFile || rawFile.trim().length === 0) {\n  throw new Error('REJECTION: Empty or missing CV content.');\n}\n\nif (rawFile.length > 5 * 1024 * 1024) {\n  throw new Error('REJECTION: File exceeds 5MB size limit.');\n}\n\n// Basic LaTeX command stripper\nlet cleanText = rawFile;\nif (fileType === 'tex') {\n  cleanText = cleanText\n    .replace(/\\\\documentclass\\[.*?\\]\\{.*?\\}/g, '')\n    .replace(/\\\\usepackage(\\[.*?\\])?\\{.*?\\}/g, '')\n    .replace(/\\\\begin\\{.*?\\}/g, '')\n    .replace(/\\\\end\\{.*?\\}/g, '')\n    .replace(/\\\\section\\*?\\{(.*?)\\}/g, '\\n=== SECTION: $1 ===\\n')\n    .replace(/\\\\textbf\\{(.*?)\\}/g, '$1')\n    .replace(/\\\\textit\\{(.*?)\\}/g, '$1')\n    .replace(/\\\\item/g, '• ')\n    .replace(/\\\\(vspace|hspace)\\{.*?\\}/g, '')\n    .replace(/\\\\[a-zA-Z]+/g, ' ')\n    .replace(/[\\\\{}]/g, ' ');\n}\n\nreturn [{ json: { clean_text: cleanText.trim(), original_type: fileType, candidate_id: input.candidate_id || 'cand_' + Date.now() } }];"
+      },
+      "name": "File Validator & Parser",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [380, 240],
+      "id": "m1-node-02"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {
+          "temperature": 0.1
+        },
+        "prompt": "=Extract structured profile adhering strictly to Contract 3.1 JSON schema without inventing facts:\n\nCV TEXT:\n{{ $json.clean_text }}"
+      },
+      "name": "LLM Structured Extractor",
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [580, 240],
+      "id": "m1-node-03"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Schema validation & Contract 3.1 compliance check\nconst extracted = $input.first().json;\n\nconst requiredFields = [\n  'schema_version',\n  'candidate_id',\n  'candidate_name',\n  'email',\n  'experience_years',\n  'job_titles',\n  'preferred_roles',\n  'technical_skills',\n  'programming_languages',\n  'frameworks',\n  'tools',\n  'keywords',\n  'education',\n  'extraction_meta'\n];\n\nfor (const field of requiredFields) {\n  if (extracted[field] === undefined) {\n    throw new Error(`CONTRACT ERROR: Missing required field '${field}'`);\n  }\n}\n\nreturn [{ json: extracted }];"
+      },
+      "name": "Schema Validator & Output Gate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [780, 240],
+      "id": "m1-node-04"
+    }
+  ],
+  "connections": {
+    "Webhook Trigger / CV Intake": {
+      "main": [
+        [
+          {
+            "node": "File Validator & Parser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "File Validator & Parser": {
+      "main": [
+        [
+          {
+            "node": "LLM Structured Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Structured Extractor": {
+      "main": [
+        [
+          {
+            "node": "Schema Validator & Output Gate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}

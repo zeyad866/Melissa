@@ -1,0 +1,179 @@
+{
+  "name": "Complete Job Hunter - Master Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "job-hunter-pipeline-start",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "name": "Start Pipeline Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [100, 300],
+      "id": "master-node-01"
+    },
+    {
+      "parameters": {
+        "workflowId": "module-1-workflow-id",
+        "options": {}
+      },
+      "name": "Execute Module 1 (CV Intelligence)",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [320, 200],
+      "id": "master-node-02"
+    },
+    {
+      "parameters": {
+        "workflowId": "module-2-workflow-id",
+        "options": {}
+      },
+      "name": "Execute Module 2 (Job Discovery)",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [320, 400],
+      "id": "master-node-03"
+    },
+    {
+      "parameters": {
+        "workflowId": "module-3-workflow-id",
+        "options": {}
+      },
+      "name": "Execute Module 3 (Matching & Ranking)",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [560, 300],
+      "id": "master-node-04"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Filter ranked jobs to only those with decision === 'APPLY'\nconst rankedList = $input.first().json;\nconst applyJobs = (rankedList || []).filter(job => job.decision === 'APPLY');\n\nif (applyJobs.length === 0) {\n  return [{ json: { message: 'No jobs qualified for APPLY decision.', total_ranked: rankedList.length, applications: [] } }];\n}\n\nreturn applyJobs.map(job => ({ json: job }));"
+      },
+      "name": "Filter APPLY Candidates",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [780, 300],
+      "id": "master-node-05"
+    },
+    {
+      "parameters": {
+        "workflowId": "module-4-workflow-id",
+        "options": {}
+      },
+      "name": "Execute Module 4 (CV Tailoring)",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [1000, 300],
+      "id": "master-node-06"
+    },
+    {
+      "parameters": {
+        "workflowId": "module-5-workflow-id",
+        "options": {}
+      },
+      "name": "Execute Module 5 (App & Tracking)",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [1220, 300],
+      "id": "master-node-07"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate final end-to-end run report\nconst results = $input.all().map(item => item.json);\n\nreturn [{\n  json: {\n    pipeline_status: 'SUCCESS',\n    completed_at: new Date().toISOString(),\n    total_applications_processed: results.length,\n    application_details: results\n  }\n}];"
+      },
+      "name": "Final Run Report",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1440, 300],
+      "id": "master-node-08"
+    }
+  ],
+  "connections": {
+    "Start Pipeline Trigger": {
+      "main": [
+        [
+          {
+            "node": "Execute Module 1 (CV Intelligence)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Execute Module 2 (Job Discovery)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Module 1 (CV Intelligence)": {
+      "main": [
+        [
+          {
+            "node": "Execute Module 3 (Matching & Ranking)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Module 2 (Job Discovery)": {
+      "main": [
+        [
+          {
+            "node": "Execute Module 3 (Matching & Ranking)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Module 3 (Matching & Ranking)": {
+      "main": [
+        [
+          {
+            "node": "Filter APPLY Candidates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter APPLY Candidates": {
+      "main": [
+        [
+          {
+            "node": "Execute Module 4 (CV Tailoring)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Module 4 (CV Tailoring)": {
+      "main": [
+        [
+          {
+            "node": "Execute Module 5 (App & Tracking)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Module 5 (App & Tracking)": {
+      "main": [
+        [
+          {
+            "node": "Final Run Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}

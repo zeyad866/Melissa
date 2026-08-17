@@ -1,0 +1,130 @@
+[
+  {
+    "cv_id": "cv_01_alex_morgan",
+    "file": "test_data/sample_cv.tex",
+    "ground_truth": {
+      "candidate_name": "Alex Morgan",
+      "email": "alex.morgan@example.com",
+      "experience_years": 4.5,
+      "job_titles": [
+        "Software Engineer",
+        "Junior Backend Developer"
+      ],
+      "technical_skills": [
+        "RESTful APIs",
+        "Microservices",
+        "Distributed Systems",
+        "CI/CD pipelines"
+      ],
+      "programming_languages": [
+        "Python",
+        "TypeScript",
+        "JavaScript",
+        "SQL"
+      ],
+      "frameworks": [
+        "FastAPI",
+        "Django",
+        "Node.js",
+        "Express",
+        "React"
+      ],
+      "tools": [
+        "PostgreSQL",
+        "Redis",
+        "Docker",
+        "Git",
+        "n8n",
+        "Linux"
+      ],
+      "education": [
+        {
+          "degree": "Bachelor of Science in Computer Science & Artificial Intelligence",
+          "field": "Computer Science & Artificial Intelligence",
+          "institution": "Technical University of Berlin",
+          "year": 2021
+        }
+      ]
+    }
+  },
+  {
+    "cv_id": "cv_02_senior_data_eng",
+    "ground_truth": {
+      "candidate_name": "Elena Rostova",
+      "experience_years": 7.0,
+      "job_titles": ["Lead Data Engineer", "Senior Big Data Architect"],
+      "technical_skills": ["ETL", "Data Pipelines", "Stream Processing"],
+      "programming_languages": ["Python", "Scala", "SQL"],
+      "frameworks": ["Apache Spark", "Apache Flink", "PySpark"],
+      "tools": ["Kafka", "Airflow", "Snowflake", "dbt", "Docker"],
+      "education": [
+        {
+          "degree": "M.Sc. in Data Science",
+          "field": "Data Science",
+          "institution": "ETH Zurich",
+          "year": 2017
+        }
+      ]
+    }
+  },
+  {
+    "cv_id": "cv_03_junior_frontend",
+    "ground_truth": {
+      "candidate_name": "Liam Chen",
+      "experience_years": 1.0,
+      "job_titles": ["Junior Frontend Developer", "Web Development Intern"],
+      "technical_skills": ["Responsive Web Design", "REST APIs", "State Management"],
+      "programming_languages": ["JavaScript", "TypeScript", "HTML5", "CSS3"],
+      "frameworks": ["React", "Next.js", "Tailwind CSS"],
+      "tools": ["Git", "Figma", "Vite", "VSCode"],
+      "education": [
+        {
+          "degree": "B.Sc. in Software Engineering",
+          "field": "Software Engineering",
+          "institution": "University of Toronto",
+          "year": 2023
+        }
+      ]
+    }
+  },
+  {
+    "cv_id": "cv_04_ai_researcher",
+    "ground_truth": {
+      "candidate_name": "Dr. Sarah Al-Mansoor",
+      "experience_years": 5.0,
+      "job_titles": ["AI Research Scientist", "NLP Engineer"],
+      "technical_skills": ["Transformer Fine-Tuning", "RAG Systems", "Evaluation"],
+      "programming_languages": ["Python", "C++", "CUDA"],
+      "frameworks": ["PyTorch", "HuggingFace Transformers", "vLLM", "LangChain"],
+      "tools": ["Weights & Biases", "Docker", "Linux", "Git"],
+      "education": [
+        {
+          "degree": "Ph.D. in Artificial Intelligence",
+          "field": "NLP & Machine Learning",
+          "institution": "Oxford University",
+          "year": 2022
+        }
+      ]
+    }
+  },
+  {
+    "cv_id": "cv_05_devops_specialist",
+    "ground_truth": {
+      "candidate_name": "Marcus Vance",
+      "experience_years": 6.0,
+      "job_titles": ["Senior DevOps Engineer", "Site Reliability Engineer"],
+      "technical_skills": ["Infrastructure as Code", "Kubernetes Clustering", "Observability"],
+      "programming_languages": ["Go", "Python", "Bash"],
+      "frameworks": ["Terraform", "Ansible", "Helm"],
+      "tools": ["Kubernetes", "AWS", "Prometheus", "Grafana", "Docker"],
+      "education": [
+        {
+          "degree": "B.Sc. in Computer Engineering",
+          "field": "Computer Engineering",
+          "institution": "Georgia Tech",
+          "year": 2018
+        }
+      ]
+    }
+  }
+]
